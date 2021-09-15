@@ -4,7 +4,7 @@ import ProductCard from './ProductCard';
 import {useProducts} from '../hooks/useProducts';
 import {theme} from '../common/theme';
 
-const ProductsList = () => {
+const ProductsList = ({displayDetails}) => {
   const {isLoading, isError, data} = useProducts();
 
   return (
@@ -12,7 +12,9 @@ const ProductsList = () => {
       {data && (
         <FlatList
           data={data}
-          renderItem={({item}) => <ProductCard />}
+          renderItem={({item}) => (
+            <ProductCard displayDetails={displayDetails} />
+          )}
           keyExtractor={item => item.id}
           numColumns={2}
           key={2}

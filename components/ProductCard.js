@@ -11,9 +11,12 @@ import {theme} from '../common/theme';
 
 const {width, height} = Dimensions.get('window');
 
-const ProductCard = () => {
+const ProductCard = ({displayDetails}) => {
   return (
-    <TouchableOpacity delayPressIn={50} style={styles.mainContainer}>
+    <TouchableOpacity
+      delayPressIn={50}
+      style={styles.mainContainer}
+      onPress={() => displayDetails()}>
       <Image
         source={require('../assets/images/milka.jpg')}
         style={styles.thumbnail}

@@ -6,14 +6,18 @@ import CategoryTitle from '../components/CategoryTitle';
 import ProductsList from '../components/ProductsList';
 import {theme} from '../common/theme';
 
-export const Home = () => {
+export const Home = ({navigation}) => {
+  const displayProductDetails = () => {
+    navigation.navigate('ProductDetails');
+  };
+
   return (
     <>
       <Header />
       <FilterBar />
       <View style={styles.contentContainer}>
         <CategoryTitle title="All products" />
-        <ProductsList />
+        <ProductsList displayDetails={displayProductDetails} />
       </View>
     </>
   );
