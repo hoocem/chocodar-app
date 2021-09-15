@@ -10,7 +10,6 @@ import React from 'react';
 import {QueryClientProvider, QueryClient} from 'react-query';
 import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import Home from './screens/Home';
 import HomeStackNav from './navigation/HomeStackNav';
 import {theme} from './common/theme';
 
