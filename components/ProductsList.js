@@ -1,7 +1,8 @@
 import React from 'react';
-import {FlatList, Text, StyleSheet} from 'react-native';
+import {FlatList, Text, ActivityIndicator, StyleSheet} from 'react-native';
 import ProductCard from './ProductCard';
 import {useProducts} from '../hooks/useProducts';
+import {theme} from '../common/theme';
 
 const ProductsList = () => {
   const {isLoading, isError, data} = useProducts();
@@ -18,7 +19,14 @@ const ProductsList = () => {
           columnWrapperStyle={styles.columnWrapperStyle}
         />
       )}
-      {isLoading && <Text>Loading...</Text>}
+      {isLoading && (
+        <ActivityIndicator
+          style={styles.loadingIndicator}
+          size="large"
+          color={theme.colors.primay}
+        />
+      )}
+      {/* TODO: Add error component */}
       {isError && <Text>Error...</Text>}
     </>
   );
@@ -27,6 +35,9 @@ const ProductsList = () => {
 const styles = StyleSheet.create({
   columnWrapperStyle: {
     justifyContent: 'space-between',
+  },
+  loadingIndicator: {
+    height: '85%',
   },
 });
 
