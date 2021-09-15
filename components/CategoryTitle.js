@@ -8,8 +8,7 @@ export const CategoryTitle = ({title}) => {
 
 const styles = StyleSheet.create({
   titleText: {
-    marginLeft: 10,
-    marginTop: 10,
+    marginBottom: 5,
     color: theme.colors.primay,
     fontSize: 16,
     fontWeight: '600',
