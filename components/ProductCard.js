@@ -18,7 +18,7 @@ const ProductCard = ({product, displayDetails}) => {
     <TouchableOpacity
       delayPressIn={50}
       style={styles.mainContainer}
-      onPress={() => displayDetails()}>
+      onPress={() => displayDetails(product._id)}>
       <Image
         source={{
           uri: buildImageUri(product.image),

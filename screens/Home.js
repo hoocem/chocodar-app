@@ -7,8 +7,10 @@ import ProductsList from '../components/ProductsList';
 import {theme} from '../common/theme';
 
 export const Home = ({navigation}) => {
-  const displayProductDetails = () => {
-    navigation.navigate('ProductDetails');
+  const displayProductDetails = productId => {
+    navigation.navigate('ProductDetails', {
+      productId: productId,
+    });
   };
 
   return (

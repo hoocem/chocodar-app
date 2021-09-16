@@ -1,8 +1,9 @@
 import React from 'react';
 import {Text} from 'react-native';
 
-const ProductDetails = () => {
-  return <Text>Product details</Text>;
+const ProductDetails = ({route}) => {
+  const {productId} = route.params;
+  return <Text>Product details {productId}</Text>;
 };
 
 export default ProductDetails;
