@@ -10,7 +10,7 @@ import React from 'react';
 import {QueryClientProvider, QueryClient} from 'react-query';
 import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import HomeStackNav from './navigation/HomeStackNav';
+import BottomTabNav from './navigation/BottomTabNav';
 import {theme} from './common/theme';
 
 const queryClient = new QueryClient();
@@ -20,7 +20,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
         <StatusBar backgroundColor={theme.colors.primay} />
-        <HomeStackNav />
+        <BottomTabNav />
       </NavigationContainer>
     </QueryClientProvider>
   );

@@ -13,7 +13,6 @@ import {buildImageUri} from '../helpers/urlHelpers';
 const {width, height} = Dimensions.get('window');
 
 const ProductCard = ({product, displayDetails}) => {
-  console.log('image = ', product.image);
   return (
     <TouchableOpacity
       delayPressIn={50}
