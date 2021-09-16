@@ -1,9 +1,9 @@
 import axios from 'axios';
-import {baseUrl} from '../common/config';
+import {apiBaseUrl} from '../common/config';
 
 const path = '/products';
 
 export const getProducts = () => {
-  const ep = baseUrl + path;
+  const ep = apiBaseUrl + path;
   return axios(ep);
 };

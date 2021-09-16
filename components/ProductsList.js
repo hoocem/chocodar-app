@@ -13,7 +13,7 @@ const ProductsList = ({displayDetails}) => {
         <FlatList
           data={data}
           renderItem={({item}) => (
-            <ProductCard displayDetails={displayDetails} />
+            <ProductCard product={item} displayDetails={displayDetails} />
           )}
           keyExtractor={item => item.id}
           numColumns={2}

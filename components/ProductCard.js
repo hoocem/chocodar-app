@@ -8,24 +8,28 @@ import {
   Dimensions,
 } from 'react-native';
 import {theme} from '../common/theme';
+import {buildImageUri} from '../helpers/urlHelpers';
 
 const {width, height} = Dimensions.get('window');
 
-const ProductCard = ({displayDetails}) => {
+const ProductCard = ({product, displayDetails}) => {
+  console.log('image = ', product.image);
   return (
     <TouchableOpacity
       delayPressIn={50}
       style={styles.mainContainer}
       onPress={() => displayDetails()}>
       <Image
-        source={require('../assets/images/milka.jpg')}
+        source={{
+          uri: buildImageUri(product.image),
+        }}
         style={styles.thumbnail}
         resizeMode="contain"
       />
       <View style={styles.detailsContainer}>
         <View>
-          <Text style={styles.title}>Milka Choc & Choc (2 x 175g)</Text>
-          <Text style={styles.price}>3.5 TND</Text>
+          <Text style={styles.title}>{product.name}</Text>
+          <Text style={styles.price}>{product.price} TND</Text>
         </View>
         <TouchableOpacity delayPressIn={50} style={styles.actionButton}>
           <Text style={styles.actionButtonText}>ADD TO CART</Text>
