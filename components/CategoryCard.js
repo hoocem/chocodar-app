@@ -11,9 +11,12 @@ import {buildImageUri} from '../helpers/urlHelpers';
 
 const {height} = Dimensions.get('window');
 
-const CategoryCard = ({category}) => {
+const CategoryCard = ({category, navigateToCategory}) => {
   return (
-    <TouchableOpacity delayPressIn={50} style={styles.mainContainer}>
+    <TouchableOpacity
+      delayPressIn={50}
+      style={styles.mainContainer}
+      onPress={() => navigateToCategory(category._id)}>
       <Text style={styles.title}>{category.name}</Text>
       <Image
         source={{

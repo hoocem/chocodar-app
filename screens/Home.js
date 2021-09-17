@@ -9,7 +9,7 @@ import {theme} from '../common/theme';
 export const Home = ({navigation}) => {
   const displayProductDetails = productId => {
     navigation.navigate('ProductDetails', {
-      productId: productId,
+      productId,
     });
   };
 

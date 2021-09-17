@@ -13,8 +13,14 @@ import {theme} from '../common/theme';
 import {useCategories} from '../hooks/useCategories';
 import Divider from '../components/Divider';
 
-const Categories = () => {
+const Categories = ({navigation}) => {
   const {isLoading, isError, data} = useCategories();
+
+  const navigateToCategory = categoryId => {
+    navigation.navigate('SingleCategory', {
+      categoryId,
+    });
+  };
 
   return (
     <>
@@ -34,7 +40,12 @@ const Categories = () => {
         {data && (
           <FlatList
             data={data}
-            renderItem={({item}) => <CategoryCard category={item} />}
+            renderItem={({item}) => (
+              <CategoryCard
+                category={item}
+                navigateToCategory={navigateToCategory}
+              />
+            )}
             ItemSeparatorComponent={() => <Divider />}
             keyExtractor={item => item._id}
             columnWrapperStyle={styles.columnWrapperStyle}

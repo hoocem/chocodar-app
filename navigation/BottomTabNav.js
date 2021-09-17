@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStackNav from '../navigation/HomeStackNav';
-import Categories from '../screens/Categories';
+import CategoryStackNav from '../navigation/CategoryStackNav';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +12,7 @@ const BottomTabNav = () => {
         headerShown: false,
       }}>
       <Tab.Screen name="HomeNav" component={HomeStackNav} />
-      <Tab.Screen name="Categories" component={Categories} />
+      <Tab.Screen name="Categories" component={CategoryStackNav} />
     </Tab.Navigator>
   );
 };
