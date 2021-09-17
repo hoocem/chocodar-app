@@ -10,12 +10,13 @@ const ProductsList = ({displayDetails}) => {
   return (
     <>
       {data && (
+        // TODO: remove scroll bar
         <FlatList
           data={data}
           renderItem={({item}) => (
             <ProductCard product={item} displayDetails={displayDetails} />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
           numColumns={2}
           key={2}
           columnWrapperStyle={styles.columnWrapperStyle}
