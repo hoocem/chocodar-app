@@ -16,9 +16,10 @@ import Divider from '../components/Divider';
 const Categories = ({navigation}) => {
   const {isLoading, isError, data} = useCategories();
 
-  const navigateToCategory = categoryId => {
+  const navigateToCategory = (categoryId, categoryName) => {
     navigation.navigate('SingleCategory', {
       categoryId,
+      categoryName,
     });
   };
 

@@ -1,12 +1,17 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SearchBar from './SearchBar';
 import {theme} from '../common/theme';
 
-export const Header = () => {
+export const Header = ({onGoBack}) => {
   return (
     <View style={styles.mainContainer}>
+      {onGoBack && (
+        <TouchableOpacity onPress={onGoBack} style={styles.backBtn}>
+          <Ionicons name="arrow-back" size={35} color={theme.colors.white} />
+        </TouchableOpacity>
+      )}
       <SearchBar />
       <Ionicons name="cart-outline" size={35} color={theme.colors.white} />
     </View>
@@ -19,6 +24,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: theme.colors.primay,
     padding: 10,
+  },
+  backBtn: {
+    marginRight: 5,
   },
 });
 

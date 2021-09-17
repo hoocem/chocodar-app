@@ -3,7 +3,11 @@ import {apiBaseUrl} from '../common/config';
 
 const path = '/products';
 
-export const getProducts = () => {
+export const getProducts = queryParams => {
   const ep = apiBaseUrl + path;
-  return axios(ep);
+
+  const config = {
+    params: queryParams,
+  };
+  return axios(ep, config);
 };

@@ -16,7 +16,7 @@ const CategoryCard = ({category, navigateToCategory}) => {
     <TouchableOpacity
       delayPressIn={50}
       style={styles.mainContainer}
-      onPress={() => navigateToCategory(category._id)}>
+      onPress={() => navigateToCategory(category._id, category.name)}>
       <Text style={styles.title}>{category.name}</Text>
       <Image
         source={{
