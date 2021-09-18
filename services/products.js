@@ -11,3 +11,8 @@ export const getProducts = queryParams => {
   };
   return axios(ep, config);
 };
+
+export const getSingleProduct = productId => {
+  const ep = apiBaseUrl + path + `/${productId}`;
+  return axios(ep);
+};
