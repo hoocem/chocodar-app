@@ -55,6 +55,7 @@ const SingleCategory = ({navigation, route}) => {
             keyExtractor={item => item._id}
             numColumns={2}
             key={2}
+            showsVerticalScrollIndicator={false}
             columnWrapperStyle={styles.columnWrapperStyle}
           />
         )}

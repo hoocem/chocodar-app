@@ -19,6 +19,7 @@ const ProductsList = ({displayDetails}) => {
           keyExtractor={item => item._id}
           numColumns={2}
           key={2}
+          showsVerticalScrollIndicator={false}
           columnWrapperStyle={styles.columnWrapperStyle}
         />
       )}

@@ -49,6 +49,7 @@ const Categories = ({navigation}) => {
             )}
             ItemSeparatorComponent={() => <Divider />}
             keyExtractor={item => item._id}
+            showsVerticalScrollIndicator={false}
             columnWrapperStyle={styles.columnWrapperStyle}
           />
         )}
