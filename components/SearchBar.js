@@ -8,7 +8,7 @@ const {height} = Dimensions.get('window');
 export const SearchBar = () => {
   return (
     <View style={styles.mainContainer}>
-      <Ionicons name="search" size={20} />
+      <Ionicons name="search" size={20} color={theme.colors.darkGray} />
       <TextInput style={styles.input} placeholder="Search for products" />
     </View>
   );
