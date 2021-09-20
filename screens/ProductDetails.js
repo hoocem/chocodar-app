@@ -10,7 +10,7 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import {useSingleProduct} from '../hooks/useProducts';
+import {useSingleProduct, useSimilarProducts} from '../hooks/useProducts';
 import Header from '../components/Header';
 import SimilarProductCard from '../components/SimilarProductCard';
 import VerticalDivider from '../components/VerticalDivider';
@@ -19,25 +19,22 @@ import {buildImageUri} from '../helpers/urlHelpers';
 
 const {height} = Dimensions.get('window');
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
-
 const ProductDetails = ({navigation, route}) => {
   const {productId} = route.params;
 
   const {isLoading, isError, data} = useSingleProduct(productId);
+  const {
+    isLoading: similarLoading,
+    isError: similarError,
+    data: similar,
+  } = useSimilarProducts(productId);
+
+  const displayDetails = id => {
+    navigation.push('ProductDetails', {
+      productId: id,
+    });
+  };
+
   return (
     <>
       <Header onGoBack={navigation.goBack} />
@@ -51,7 +48,9 @@ const ProductDetails = ({navigation, route}) => {
       {isError && <Text>Error...</Text>}
       {data && (
         <>
-          <ScrollView style={styles.mainContainer}>
+          <ScrollView
+            style={styles.mainContainer}
+            showsVerticalScrollIndicator={false}>
             <Image
               source={{
                 uri: buildImageUri(data.image),
@@ -74,15 +73,28 @@ const ProductDetails = ({navigation, route}) => {
               style={styles.adBanner}
             />
             <Text style={styles.similarproductsText}>Similar Products</Text>
-            <FlatList
-              data={DATA}
-              renderItem={({item}) => <SimilarProductCard />}
-              keyExtractor={item => item.id}
-              horizontal={true}
-              ItemSeparatorComponent={() => <VerticalDivider />}
-              showsHorizontalScrollIndicator={false}
-              style={styles.similarProductsContainer}
-            />
+            {similarLoading && (
+              <View style={styles.similarLoadingContainer}>
+                <ActivityIndicator size="large" color={theme.colors.primay} />
+              </View>
+            )}
+            {similarError && <Text>Error...</Text>}
+            {similar && (
+              <FlatList
+                data={similar}
+                renderItem={({item}) => (
+                  <SimilarProductCard
+                    product={item}
+                    displayDetails={displayDetails}
+                  />
+                )}
+                keyExtractor={item => item._id}
+                horizontal={true}
+                ItemSeparatorComponent={() => <VerticalDivider />}
+                showsHorizontalScrollIndicator={false}
+                style={styles.similarProductsContainer}
+              />
+            )}
           </ScrollView>
           <View style={styles.actionBtnContainer}>
             <TouchableOpacity style={styles.actionBtn}>
@@ -145,7 +157,8 @@ const styles = StyleSheet.create({
   },
   similarProductsContainer: {
     width: '100%',
-    marginVertical: 10,
+    marginTop: 10,
+    marginBottom: 30,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: theme.colors.gray,
@@ -172,6 +185,9 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontSize: 16,
     fontWeight: '500',
+  },
+  similarLoadingContainer: {
+    marginVertical: 10,
   },
 });
 

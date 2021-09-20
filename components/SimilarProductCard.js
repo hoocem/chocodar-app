@@ -12,20 +12,23 @@ import {buildImageUri} from '../helpers/urlHelpers';
 
 const {height, width} = Dimensions.get('window');
 
-const SimilarProductCard = () => {
+const SimilarProductCard = ({product, displayDetails}) => {
   return (
-    <TouchableOpacity delayPressIn={50} style={styles.mainContainer}>
+    <TouchableOpacity
+      delayPressIn={50}
+      style={styles.mainContainer}
+      onPress={() => displayDetails(product._id)}>
       <Image
         source={{
-          uri: buildImageUri('/images/milka.jpg'),
+          uri: buildImageUri(product.image),
         }}
         style={styles.thumbnail}
         resizeMode="contain"
       />
       <View style={styles.detailsContainer}>
         <View>
-          <Text style={styles.title}>Milka bl hlib</Text>
-          <Text style={styles.price}>3.5 TND</Text>
+          <Text style={styles.title}>{product.name}</Text>
+          <Text style={styles.price}>{product.price}</Text>
         </View>
         <TouchableOpacity delayPressIn={50} style={styles.actionButton}>
           <Text style={styles.actionButtonText}>ADD TO CART</Text>

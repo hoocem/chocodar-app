@@ -1,5 +1,9 @@
 import {useQuery} from 'react-query';
-import {getProducts, getSingleProduct} from '../services/products';
+import {
+  getProducts,
+  getSingleProduct,
+  getSimilarProducts,
+} from '../services/products';
 
 export const useProducts = queryParams => {
   return useQuery('products', async () => {
@@ -9,8 +13,15 @@ export const useProducts = queryParams => {
 };
 
 export const useSingleProduct = productId => {
-  return useQuery(['sinleProduct', productId], async () => {
+  return useQuery(['singleProduct', productId], async () => {
     const {data} = await getSingleProduct(productId);
+    return data.data;
+  });
+};
+
+export const useSimilarProducts = productId => {
+  return useQuery(['similarProducts', productId], async () => {
+    const {data} = await getSimilarProducts(productId);
     return data.data;
   });
 };

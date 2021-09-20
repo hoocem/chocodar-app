@@ -16,3 +16,8 @@ export const getSingleProduct = productId => {
   const ep = apiBaseUrl + path + `/${productId}`;
   return axios(ep);
 };
+
+export const getSimilarProducts = productId => {
+  const ep = apiBaseUrl + path + `/similar/${productId}`;
+  return axios(ep);
+};
