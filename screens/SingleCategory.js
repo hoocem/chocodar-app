@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import dotProp from 'dot-prop-immutable';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useProducts} from '../hooks/useProducts';
 import Header from '../components/Header';
 import FilterBar from '../components/FilterBar';
