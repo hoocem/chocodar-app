@@ -1,25 +1,25 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {theme} from '../common/theme';
 
-export const FilterBar = () => {
+export const FilterBar = ({onShowModal}) => {
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.itemContainer}>
+      <TouchableOpacity onPress={onShowModal} style={styles.itemContainer}>
         <MaterialCommunityIcons
           name="sort"
           size={20}
           color={theme.colors.white}
         />
         <Text style={styles.itemtext}>Sort by</Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.verticalDivider} />
-      <View style={styles.itemContainer}>
+      <TouchableOpacity style={styles.itemContainer}>
         <FontAwesome name="filter" size={20} color={theme.colors.white} />
         <Text style={styles.itemtext}>Filter</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

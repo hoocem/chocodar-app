@@ -25,7 +25,7 @@ const Hometabs = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
-            <Ionicons name="home" color={color} size={30} />
+            <Ionicons name="home" color={color} size={28} />
           ),
         }}
       />
@@ -35,7 +35,7 @@ const Hometabs = () => {
         options={{
           tabBarLabel: 'Categories',
           tabBarIcon: ({color}) => (
-            <MaterialIcons name="category" color={color} size={30} />
+            <MaterialIcons name="category" color={color} size={28} />
           ),
         }}
       />

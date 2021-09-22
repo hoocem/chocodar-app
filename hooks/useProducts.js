@@ -6,7 +6,7 @@ import {
 } from '../services/products';
 
 export const useProducts = queryParams => {
-  return useQuery('products', async () => {
+  return useQuery(['products', queryParams], async () => {
     const {data} = await getProducts(queryParams);
     return data.data;
   });
