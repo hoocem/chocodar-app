@@ -20,6 +20,7 @@ import {theme} from '../common/theme';
 export const Home = ({navigation}) => {
   const [params, setParams] = useState({});
   const [showSortBy, setShowSortBy] = useState(false);
+  const [selectedSortValue, setSelectedSortValue] = useState(0);
 
   const {isLoading, isError, data} = useProducts(params);
 
@@ -27,7 +28,8 @@ export const Home = ({navigation}) => {
     setShowSortBy(prevState => !prevState);
   };
 
-  const handleSelectSort = value => {
+  const handleSelectSort = (value, sortIndex) => {
+    setSelectedSortValue(sortIndex);
     setParams(dotProp.set(params, 'sort', value));
   };
 
@@ -88,7 +90,11 @@ export const Home = ({navigation}) => {
         {isError && <Text>Error...</Text>}
       </View>
       {showSortBy && (
-        <SortBy onSelect={handleSelectSort} onShowModal={handleShowSortBy} />
+        <SortBy
+          selectedIndex={selectedSortValue}
+          onSelect={handleSelectSort}
+          onShowModal={handleShowSortBy}
+        />
       )}
     </>
   );

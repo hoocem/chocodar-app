@@ -1,8 +1,15 @@
 import React from 'react';
 import {TouchableOpacity, View, StyleSheet, Text} from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {theme} from '../common/theme';
 
-const SortBy = ({onSelect, onShowModal}) => {
+const SortBy = ({selectedIndex, onSelect, onShowModal}) => {
+  const sortValues = [
+    {label: 'Relevance', value: 'name.asc'},
+    {label: 'Price (lowest first)', value: 'price.asc'},
+    {label: 'Price (highest first)', value: 'price.desc'},
+  ];
+
   return (
     <TouchableOpacity
       onPress={onShowModal}
@@ -10,27 +17,24 @@ const SortBy = ({onSelect, onShowModal}) => {
       style={styles.mainContainer}>
       <View style={styles.listContainer}>
         <Text style={styles.listheader}>Sort By</Text>
-        <TouchableOpacity
-          onPress={() => {
-            onSelect('name.asc');
-            onShowModal();
-          }}>
-          <Text style={styles.listItem}>Relevance</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            onSelect('price.asc');
-            onShowModal();
-          }}>
-          <Text style={styles.listItem}>Price (lowest first)</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            onSelect('price.desc');
-            onShowModal();
-          }}>
-          <Text style={styles.listItem}>Price (highest first)</Text>
-        </TouchableOpacity>
+        {sortValues.map((value, index) => (
+          <TouchableOpacity
+            key={value.value}
+            style={styles.listItemContainer}
+            onPress={() => {
+              onSelect(value.value, index);
+              onShowModal();
+            }}>
+            <Text style={styles.listItem}>{`${value.label} ${index}`}</Text>
+            {index === selectedIndex && (
+              <FontAwesome5
+                name="check"
+                size={20}
+                color={theme.colors.primay}
+              />
+            )}
+          </TouchableOpacity>
+        ))}
       </View>
     </TouchableOpacity>
   );
@@ -56,6 +60,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     borderBottomWidth: 1,
     borderColor: theme.colors.gray,
+  },
+  listItemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 20,
   },
   listItem: {
     paddingHorizontal: 10,
