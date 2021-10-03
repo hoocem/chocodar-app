@@ -51,7 +51,6 @@ const Categories = ({navigation}) => {
             keyExtractor={item => item._id}
             showsVerticalScrollIndicator={false}
             columnWrapperStyle={styles.columnWrapperStyle}
-            contentContainerStyle={{paddingBottom: 20}}
           />
         )}
       </View>
