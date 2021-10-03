@@ -118,6 +118,7 @@ const Search = ({navigation, route}) => {
             key={2}
             showsVerticalScrollIndicator={false}
             columnWrapperStyle={styles.columnWrapperStyle}
+            contentContainerStyle={styles.flatListContent}
           />
         )}
       </View>
@@ -144,6 +145,9 @@ const styles = StyleSheet.create({
   },
   columnWrapperStyle: {
     justifyContent: 'space-between',
+  },
+  flatListContent: {
+    paddingBottom: 10,
   },
 });
 

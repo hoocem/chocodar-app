@@ -104,6 +104,7 @@ export const Home = ({navigation}) => {
             key={2}
             showsVerticalScrollIndicator={false}
             columnWrapperStyle={styles.columnWrapperStyle}
+            contentContainerStyle={styles.flatListContent}
           />
         )}
         {isLoading && (
@@ -136,6 +137,9 @@ const styles = StyleSheet.create({
   },
   columnWrapperStyle: {
     justifyContent: 'space-between',
+  },
+  flatListContent: {
+    paddingBottom: 10,
   },
   loadingIndicator: {
     height: '85%',
