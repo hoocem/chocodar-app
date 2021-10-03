@@ -1,6 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ProductDetails from '../screens/ProductDetails';
+import Search from '../screens/Search';
 import Hometabs from '../navigation/Hometabs';
 
 const Stack = createNativeStackNavigator();
@@ -16,6 +17,11 @@ const HomeStackNav = () => {
       <Stack.Screen
         name="ProductDetails"
         component={ProductDetails}
+        options={{headerShown: false, tabBarVisible: false}}
+      />
+      <Stack.Screen
+        name="Search"
+        component={Search}
         options={{headerShown: false, tabBarVisible: false}}
       />
     </Stack.Navigator>

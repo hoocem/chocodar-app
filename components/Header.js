@@ -4,7 +4,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import SearchBar from './SearchBar';
 import {theme} from '../common/theme';
 
-export const Header = ({onGoBack}) => {
+export const Header = ({
+  keyword,
+  onGoBack,
+  onSearchChange,
+  onSubmitSearch,
+  onClearSearch,
+}) => {
   return (
     <View style={styles.mainContainer}>
       {onGoBack && (
@@ -12,7 +18,12 @@ export const Header = ({onGoBack}) => {
           <Ionicons name="arrow-back" size={35} color={theme.colors.white} />
         </TouchableOpacity>
       )}
-      <SearchBar />
+      <SearchBar
+        value={keyword}
+        onChange={onSearchChange}
+        onSubmit={onSubmitSearch}
+        onClear={onClearSearch}
+      />
       <Ionicons name="cart-outline" size={35} color={theme.colors.white} />
     </View>
   );

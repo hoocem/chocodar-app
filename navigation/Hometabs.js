@@ -15,6 +15,7 @@ const Hometabs = () => {
         headerShown: false,
         tabBarActiveTintColor: theme.colors.primay,
         tabBarInactiveTintColor: '#606060',
+        tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
           fontSize: 12,
         },
