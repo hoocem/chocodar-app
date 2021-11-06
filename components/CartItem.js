@@ -39,7 +39,7 @@ const CartItem = ({product}) => {
           <TouchableOpacity
             style={styles.deleteBtn}
             onPress={() => dispatch(removeItem(product._id))}>
-            <Entypo name="cross" color={theme.colors.gray} size={17} />
+            <Entypo name="cross" color={theme.colors.gray} size={20} />
           </TouchableOpacity>
           <View style={styles.incDecContainer}>
             {product.quantity > 1 ? (
@@ -48,14 +48,14 @@ const CartItem = ({product}) => {
                 <Entypo
                   name="circle-with-minus"
                   color={theme.colors.primay}
-                  size={17}
+                  size={20}
                 />
               </TouchableOpacity>
             ) : (
               <Entypo
                 name="circle-with-minus"
                 color="rgba(228, 105, 5, 0.5)"
-                size={17}
+                size={20}
               />
             )}
             <Text style={styles.quantity}>{product.quantity}</Text>
@@ -65,7 +65,7 @@ const CartItem = ({product}) => {
                 <Entypo
                   name="circle-with-plus"
                   color={theme.colors.primay}
-                  size={17}
+                  size={20}
                 />
               </TouchableOpacity>
             ) : (
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   quantity: {
     marginHorizontal: 5,
-    fontSize: 15,
+    fontSize: 16,
     color: theme.colors.darkGray,
   },
   deleteBtn: {

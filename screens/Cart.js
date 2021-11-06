@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -51,8 +52,15 @@ const Cart = ({navigation}) => {
             </TouchableOpacity>
           </>
         )}
-        {!!cart.length &&
-          cart.map(item => <CartItem key={item._id} product={item} />)}
+        {!!cart.length && (
+          <FlatList
+            data={cart}
+            renderItem={({item}) => <CartItem product={item} />}
+            keyExtractor={item => item._id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.flatListContent}
+          />
+        )}
       </View>
     </View>
   );
@@ -116,6 +124,9 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontSize: 16,
     fontWeight: '500',
+  },
+  flatListContent: {
+    flex: 1,
   },
 });
 
