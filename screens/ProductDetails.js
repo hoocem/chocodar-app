@@ -10,17 +10,21 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import {useSingleProduct, useSimilarProducts} from '../hooks/useProducts';
 import Header from '../components/Header';
 import SimilarProductCard from '../components/SimilarProductCard';
 import VerticalDivider from '../components/VerticalDivider';
 import {theme} from '../common/theme';
 import {buildImageUri} from '../helpers/urlHelpers';
+import cartActions from '../redux/cart/actions';
 
 const {height} = Dimensions.get('window');
+const {addItem} = cartActions;
 
 const ProductDetails = ({navigation, route}) => {
   const {productId} = route.params;
+  const dispatch = useDispatch();
 
   const {isLoading, isError, data} = useSingleProduct(productId);
   const {
@@ -37,7 +41,10 @@ const ProductDetails = ({navigation, route}) => {
 
   return (
     <>
-      <Header onGoBack={navigation.goBack} />
+      <Header
+        onGoBack={navigation.goBack}
+        onCartClick={() => navigation.navigate('Cart')}
+      />
       {isLoading && (
         <ActivityIndicator
           style={styles.loadingIndicator}
@@ -97,7 +104,11 @@ const ProductDetails = ({navigation, route}) => {
             )}
           </ScrollView>
           <View style={styles.actionBtnContainer}>
-            <TouchableOpacity style={styles.actionBtn}>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(addItem(data));
+              }}
+              style={styles.actionBtn}>
               <Text style={styles.actionBtnText}>ADD TO CART</Text>
             </TouchableOpacity>
           </View>

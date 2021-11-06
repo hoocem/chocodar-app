@@ -7,6 +7,7 @@ import {theme} from '../common/theme';
 export const Header = ({
   keyword,
   onGoBack,
+  onCartClick,
   onSearchChange,
   onSubmitSearch,
   onClearSearch,
@@ -24,7 +25,9 @@ export const Header = ({
         onSubmit={onSubmitSearch}
         onClear={onClearSearch}
       />
-      <Ionicons name="cart-outline" size={35} color={theme.colors.white} />
+      <TouchableOpacity onPress={onCartClick}>
+        <Ionicons name="cart-outline" size={35} color={theme.colors.white} />
+      </TouchableOpacity>
     </View>
   );
 };

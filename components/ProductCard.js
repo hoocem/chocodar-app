@@ -7,12 +7,17 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import {theme} from '../common/theme';
 import {buildImageUri} from '../helpers/urlHelpers';
+import cartActions from '../redux/cart/actions';
 
 const {width, height} = Dimensions.get('window');
+const {addItem} = cartActions;
 
 const ProductCard = ({product, displayDetails}) => {
+  const dispatch = useDispatch();
+
   return (
     <TouchableOpacity
       delayPressIn={50}
@@ -30,7 +35,12 @@ const ProductCard = ({product, displayDetails}) => {
           <Text style={styles.title}>{product.name}</Text>
           <Text style={styles.price}>{product.price} TND</Text>
         </View>
-        <TouchableOpacity delayPressIn={50} style={styles.actionButton}>
+        <TouchableOpacity
+          delayPressIn={50}
+          style={styles.actionButton}
+          onPress={() => {
+            dispatch(addItem(product));
+          }}>
           <Text style={styles.actionButtonText}>ADD TO CART</Text>
         </TouchableOpacity>
       </View>

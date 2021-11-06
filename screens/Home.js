@@ -83,6 +83,7 @@ export const Home = ({navigation}) => {
     <>
       <Header
         keyword={searchTerm}
+        onCartClick={() => navigation.navigate('Cart')}
         onSearchChange={handleSearchChange}
         onSubmitSearch={handleSubmitSearch}
         onClearSearch={handleClearSearch}
