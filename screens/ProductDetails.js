@@ -10,7 +10,8 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {useSingleProduct, useSimilarProducts} from '../hooks/useProducts';
 import Header from '../components/Header';
 import SimilarProductCard from '../components/SimilarProductCard';
@@ -20,10 +21,11 @@ import {buildImageUri} from '../helpers/urlHelpers';
 import cartActions from '../redux/cart/actions';
 
 const {height} = Dimensions.get('window');
-const {addItem} = cartActions;
+const {addItem, incrementQuantity, decrementQuantity, removeItem} = cartActions;
 
 const ProductDetails = ({navigation, route}) => {
   const {productId} = route.params;
+  const cart = useSelector(state => state.cartReducer);
   const dispatch = useDispatch();
 
   const {isLoading, isError, data} = useSingleProduct(productId);
@@ -37,6 +39,50 @@ const ProductDetails = ({navigation, route}) => {
     navigation.push('ProductDetails', {
       productId: id,
     });
+  };
+
+  const renderActionBtn = () => {
+    const index = cart.findIndex(prod => prod._id === productId);
+
+    if (index === -1) {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(addItem(data));
+          }}
+          style={styles.actionBtn}>
+          <Text style={styles.actionBtnText}>ADD TO CART</Text>
+        </TouchableOpacity>
+      );
+    }
+
+    return (
+      <View style={styles.incDecBtnsContainer}>
+        <TouchableOpacity
+          style={styles.incDecBtn}
+          onPress={() => {
+            if (cart[index].quantity === 1) {
+              dispatch(removeItem(productId));
+            } else {
+              dispatch(decrementQuantity(productId));
+            }
+          }}>
+          <Entypo name="minus" color={theme.colors.white} size={20} />
+        </TouchableOpacity>
+        <Text style={styles.quantity}>{cart[index].quantity}</Text>
+        {cart[index].quantity < data.countInStock ? (
+          <TouchableOpacity
+            style={styles.incDecBtn}
+            onPress={() => dispatch(incrementQuantity(productId))}>
+            <Entypo name="plus" color={theme.colors.white} size={20} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.inactiveBtn}>
+            <Entypo name="plus" color={theme.colors.white} size={20} />
+          </TouchableOpacity>
+        )}
+      </View>
+    );
   };
 
   return (
@@ -103,15 +149,7 @@ const ProductDetails = ({navigation, route}) => {
               />
             )}
           </ScrollView>
-          <View style={styles.actionBtnContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(addItem(data));
-              }}
-              style={styles.actionBtn}>
-              <Text style={styles.actionBtnText}>ADD TO CART</Text>
-            </TouchableOpacity>
-          </View>
+          <View style={styles.actionBtnContainer}>{renderActionBtn()}</View>
         </>
       )}
     </>
@@ -175,6 +213,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.gray,
   },
   actionBtnContainer: {
+    flexDirection: 'row',
     width: '100%',
     height: 50,
     paddingHorizontal: 10,
@@ -199,6 +238,34 @@ const styles = StyleSheet.create({
   },
   similarLoadingContainer: {
     marginVertical: 10,
+  },
+  incDecBtnsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: '100%',
+    width: '100%',
+  },
+  incDecBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    width: height * 0.0578,
+    backgroundColor: theme.colors.primay,
+    borderRadius: 8,
+  },
+  inactiveBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    width: height * 0.0578,
+    backgroundColor: 'rgba(228, 105, 5, 0.5)',
+    borderRadius: 8,
+  },
+  quantity: {
+    color: theme.colors.darkGray,
+    fontWeight: '500',
+    fontSize: 16,
   },
 });
 
