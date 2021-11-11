@@ -8,5 +8,6 @@ export const theme = {
     lightGray: '#F1F1F1',
     darkGray: '#262E34',
     blue: '#3366BB',
+    green: '#23C552',
   },
 };

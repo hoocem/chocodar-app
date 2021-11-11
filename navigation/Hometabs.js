@@ -1,4 +1,6 @@
 import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -10,6 +12,8 @@ import {theme} from '../common/theme';
 const Tab = createBottomTabNavigator();
 
 const Hometabs = () => {
+  const cart = useSelector(state => state.cartReducer);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -47,12 +51,42 @@ const Hometabs = () => {
         options={{
           tabBarLabel: 'Cart',
           tabBarIcon: ({color}) => (
-            <Ionicons name="cart" color={color} size={30} />
+            <View>
+              {!!cart.length && (
+                <View style={styles.badge}>
+                  <Text style={styles.badgeText}>{cart.length}</Text>
+                </View>
+              )}
+              <Ionicons name="cart" color={color} size={30} />
+            </View>
           ),
         }}
       />
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  badge: {
+    flexDirection: 'row',
+    height: 18,
+    width: 18,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    color: '#fff',
+    position: 'absolute',
+    zIndex: 10,
+    top: 0,
+    right: -2,
+    padding: 1,
+    backgroundColor: theme.colors.green,
+    borderRadius: 8,
+  },
+  badgeText: {
+    alignSelf: 'center',
+    color: theme.colors.white,
+    fontSize: 13,
+  },
+});
 
 export default Hometabs;
