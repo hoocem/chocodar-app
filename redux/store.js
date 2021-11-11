@@ -8,4 +8,7 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-export default createStore(persistReducer(persistConfig, rootReducer));
+export default createStore(
+  persistReducer(persistConfig, rootReducer),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);

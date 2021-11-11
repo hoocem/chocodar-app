@@ -29,8 +29,7 @@ const cartReducer = (state = initialState, action) => {
         };
       });
     case actions.REMOVE_ITEM:
-      const index = state.findIndex(product => product.id === actions.payload);
-
+      const index = state.findIndex(product => product._id === action.payload);
       return [...state.slice(0, index), ...state.slice(index + 1)];
     default:
       return state;
