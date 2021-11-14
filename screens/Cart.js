@@ -19,7 +19,7 @@ const Cart = ({navigation}) => {
   const cart = useSelector(state => state.cartReducer);
 
   return (
-    <View>
+    <>
       <SecondaryHeader
         name="Cart"
         onGoBack={() => {
@@ -62,7 +62,7 @@ const Cart = ({navigation}) => {
           />
         )}
       </View>
-    </View>
+    </>
   );
 };
 

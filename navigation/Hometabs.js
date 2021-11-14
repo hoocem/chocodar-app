@@ -7,6 +7,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Home from '../screens/Home';
 import CategoryStackNav from '../navigation/CategoryStackNav';
 import Cart from '../screens/Cart';
+import AuthStackNav from '../navigation/AuthStackNav';
 import {theme} from '../common/theme';
 
 const Tab = createBottomTabNavigator();
@@ -59,6 +60,16 @@ const Hometabs = () => {
               )}
               <Ionicons name="cart" color={color} size={30} />
             </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Account"
+        component={AuthStackNav}
+        options={{
+          tabBarLabel: 'Account',
+          tabBarIcon: ({color}) => (
+            <Ionicons name="person" color={color} size={28} />
           ),
         }}
       />
