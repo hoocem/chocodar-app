@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   checkouBtn: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 50,
+    height: height * 0.0578,
     width: '100%',
     borderRadius: 10,
     backgroundColor: theme.colors.primay,

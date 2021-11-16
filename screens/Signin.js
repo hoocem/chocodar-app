@@ -11,6 +11,7 @@ import {useDispatch} from 'react-redux';
 import {useForm, Controller} from 'react-hook-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {RNToasty} from 'react-native-toasty';
 import SecondaryHeader from '../components/SecondaryHeader';
 import {theme} from '../common/theme';
 import {useSignin} from '../hooks/useAuth';
@@ -27,7 +28,20 @@ const Signin = ({navigation}) => {
 
   const {mutate: signinMutaion} = useSignin({
     onError: err => {
-      console.log('error = ', err);
+      console.log('error = ', err.response.status);
+      if (err.response.status === 401) {
+        RNToasty.Error({
+          title: 'Invalid email and password combination',
+          position: 'top',
+          duration: 1,
+        });
+      } else {
+        RNToasty.Error({
+          title: 'Something went wrong try agin',
+          position: 'top',
+          duration: 1,
+        });
+      }
     },
     onSuccess: async data => {
       const {token} = data.data;
@@ -73,7 +87,11 @@ const Signin = ({navigation}) => {
             required: true,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <View style={styles.formField}>
+            <View
+              style={[
+                styles.formField,
+                errors.email && {borderColor: theme.colors.red},
+              ]}>
               <Ionicons
                 name="mail-outline"
                 size={25}
@@ -95,14 +113,20 @@ const Signin = ({navigation}) => {
           )}
           name="email"
         />
-        {errors.email && <Text>This is required.</Text>}
+        {errors.email && (
+          <Text style={styles.errorText}>Email is required.</Text>
+        )}
         <Controller
           control={control}
           rules={{
             required: true,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <View style={styles.formField}>
+            <View
+              style={[
+                styles.formField,
+                errors.password && {borderColor: theme.colors.red},
+              ]}>
               <Ionicons
                 name="lock-closed-outline"
                 size={25}
@@ -122,7 +146,9 @@ const Signin = ({navigation}) => {
           )}
           name="password"
         />
-        {errors.password && <Text>This is required.</Text>}
+        {errors.password && (
+          <Text style={styles.errorText}>Password is required.</Text>
+        )}
         <Text style={styles.forgotPwText}>Forgot Password?</Text>
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
@@ -247,6 +273,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginBottom: 2,
     color: theme.colors.gray,
+  },
+  errorText: {
+    color: theme.colors.red,
   },
 });
 
