@@ -1,20 +1,61 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   View,
   Text,
+  TextInput,
   StyleSheet,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {useForm, Controller} from 'react-hook-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SecondaryHeader from '../components/SecondaryHeader';
-import AuthField from '../components/AuthField';
 import {theme} from '../common/theme';
+import {useSignin} from '../hooks/useAuth';
+import {me} from '../services/auth';
+import authActions from '../redux/auth/actions';
 
 const {height} = Dimensions.get('window');
+const {setUserContext} = authActions;
 
 const Signin = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const passwordInput = useRef();
+
+  const {mutate: signinMutaion} = useSignin({
+    onError: err => {
+      console.log('error = ', err);
+    },
+    onSuccess: async data => {
+      const {token} = data.data;
+      const res = await me(token);
+      const signedinUser = {
+        ...res.data.data,
+        token,
+      };
+
+      dispatch(setUserContext(signedinUser));
+    },
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = data => {
+    signinMutaion(data);
+  };
+
   return (
     <>
       <SecondaryHeader
@@ -26,10 +67,65 @@ const Signin = ({navigation}) => {
       <View style={styles.contentContainer}>
         <Text style={styles.title}>Welcome,</Text>
         <Text style={styles.subtitle}>Sign in to continue</Text>
-        <AuthField placeholder="Email" iconName="mail-outline" />
-        <AuthField placeholder="Password" iconName="lock-closed-outline" />
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <View style={styles.formField}>
+              <Ionicons
+                name="mail-outline"
+                size={25}
+                color={theme.colors.gray}
+                style={styles.icon}
+              />
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                placeholder="Email"
+                keyboardType="email-address"
+                returnKeyType="next"
+                onSubmitEditing={() => passwordInput.current.focus()}
+                style={styles.input}
+              />
+            </View>
+          )}
+          name="email"
+        />
+        {errors.email && <Text>This is required.</Text>}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <View style={styles.formField}>
+              <Ionicons
+                name="lock-closed-outline"
+                size={25}
+                color={theme.colors.gray}
+                style={styles.icon}
+              />
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                placeholder="Password"
+                secureTextEntry={true}
+                ref={passwordInput}
+                style={styles.input}
+              />
+            </View>
+          )}
+          name="password"
+        />
+        {errors.password && <Text>This is required.</Text>}
         <Text style={styles.forgotPwText}>Forgot Password?</Text>
-        <TouchableOpacity style={styles.actionButton}>
+        <TouchableOpacity
+          onPress={handleSubmit(onSubmit)}
+          style={styles.actionButton}>
           <Text style={styles.actionButtonText}>Login</Text>
         </TouchableOpacity>
         <Text style={styles.loginWithText}>Or, login with...</Text>
@@ -122,6 +218,34 @@ const styles = StyleSheet.create({
   signupText: {
     color: theme.colors.primay,
     fontWeight: '500',
+  },
+  formField: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+    marginRight: 5,
+    marginTop: 40,
+    paddingLeft: 5,
+    paddingRight: 10,
+    height: height * 0.06,
+    borderBottomWidth: 1,
+    borderColor: theme.colors.gray,
+  },
+  input: {
+    flex: 1,
+    fontSize: 18,
+    paddingBottom: 0,
+  },
+  icon: {
+    alignSelf: 'flex-end',
+  },
+  inputPrefix: {
+    fontSize: 18,
+    paddingBottom: 0,
+    marginLeft: 5,
+    marginBottom: 2,
+    color: theme.colors.gray,
   },
 });
 

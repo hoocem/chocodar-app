@@ -1,12 +1,18 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useSelector} from 'react-redux';
 import Signin from '../screens/Signin';
 import Signup from '../screens/Signup';
+import Account from '../screens/Account';
 
 const Stack = createNativeStackNavigator();
 
 const AuthStackNav = () => {
-  return (
+  const user = useSelector(state => state.authReducer);
+
+  return user && user.token ? (
+    <Account />
+  ) : (
     <Stack.Navigator>
       <Stack.Screen
         name="Signin"
