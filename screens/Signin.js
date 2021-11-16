@@ -88,6 +88,7 @@ const Signin = ({navigation}) => {
                 keyboardType="email-address"
                 returnKeyType="next"
                 onSubmitEditing={() => passwordInput.current.focus()}
+                blurOnSubmit={false}
                 style={styles.input}
               />
             </View>
