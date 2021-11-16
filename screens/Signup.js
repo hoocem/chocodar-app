@@ -117,6 +117,7 @@ const Signup = ({navigation}) => {
                 placeholder="First name"
                 returnKeyType="next"
                 onSubmitEditing={() => lastNameInput.current.focus()}
+                blurOnSubmit={false}
                 style={styles.input}
               />
             </View>
@@ -144,6 +145,7 @@ const Signup = ({navigation}) => {
                 placeholder="Last name"
                 returnKeyType="next"
                 onSubmitEditing={() => emailInput.current.focus()}
+                blurOnSubmit={false}
                 ref={lastNameInput}
                 style={styles.input}
               />
@@ -173,6 +175,7 @@ const Signup = ({navigation}) => {
                 keyboardType="email-address"
                 returnKeyType="next"
                 onSubmitEditing={() => passwordInput.current.focus()}
+                blurOnSubmit={false}
                 ref={emailInput}
                 style={styles.input}
               />
@@ -202,6 +205,7 @@ const Signup = ({navigation}) => {
                 secureTextEntry={true}
                 returnKeyType="next"
                 onSubmitEditing={() => phoneInput.current.focus()}
+                blurOnSubmit={false}
                 ref={passwordInput}
                 style={styles.input}
               />

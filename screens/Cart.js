@@ -8,6 +8,7 @@ import {
   FlatList,
 } from 'react-native';
 import {useSelector} from 'react-redux';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {theme} from '../common/theme';
 import SecondaryHeader from '../components/SecondaryHeader';
@@ -17,6 +18,8 @@ const {height} = Dimensions.get('window');
 
 const Cart = ({navigation}) => {
   const cart = useSelector(state => state.cartReducer);
+
+  const tabBarHeight = useBottomTabBarHeight();
 
   return (
     <>
@@ -61,6 +64,17 @@ const Cart = ({navigation}) => {
             contentContainerStyle={styles.flatListContent}
           />
         )}
+        <View
+          style={[
+            styles.checkoutContainer,
+            {paddingBottom: tabBarHeight + 15},
+          ]}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Checkout')}
+            style={styles.checkouBtn}>
+            <Text style={styles.actionButtonText}>CHECKOUT</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   );
@@ -70,7 +84,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     height: '100%',
     paddingTop: 10,
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     backgroundColor: theme.colors.lightGray,
   },
   iconContainer: {
@@ -127,6 +141,25 @@ const styles = StyleSheet.create({
   },
   flatListContent: {
     flex: 1,
+    marginHorizontal: 10,
+  },
+  checkoutContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: 10,
+    paddingTop: 5,
+    backgroundColor: theme.colors.white,
+    shadowColor: '#000',
+    elevation: 11,
+    shadowOpacity: 1,
+  },
+  checkouBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: '100%',
+    borderRadius: 10,
+    backgroundColor: theme.colors.primay,
   },
 });
 
