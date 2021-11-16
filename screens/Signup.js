@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
+import {useIsFocused} from '@react-navigation/native';
 import {useForm, Controller} from 'react-hook-form';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -23,6 +24,7 @@ const {setUserContext} = authActions;
 
 const Signup = ({navigation}) => {
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const lastNameInput = useRef();
   const emailInput = useRef();
@@ -50,6 +52,7 @@ const Signup = ({navigation}) => {
     control,
     handleSubmit,
     formState: {errors},
+    clearErrors,
   } = useForm({
     defaultValues: {
       firstName: '',
@@ -68,6 +71,10 @@ const Signup = ({navigation}) => {
 
     signupMutaion(payload);
   };
+
+  useEffect(() => {
+    clearErrors();
+  }, [clearErrors, isFocused]);
 
   return (
     <>
@@ -103,7 +110,11 @@ const Signup = ({navigation}) => {
             required: true,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <View style={styles.formField}>
+            <View
+              style={[
+                styles.formField,
+                errors.firstName && {borderColor: theme.colors.red},
+              ]}>
               <Ionicons
                 name="person-outline"
                 size={25}
@@ -124,14 +135,20 @@ const Signup = ({navigation}) => {
           )}
           name="firstName"
         />
-        {errors.firstName && <Text>This is required.</Text>}
+        {errors.firstName && (
+          <Text style={styles.errorText}>First name is required.</Text>
+        )}
         <Controller
           control={control}
           rules={{
             required: true,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <View style={styles.formField}>
+            <View
+              style={[
+                styles.formField,
+                errors.lastName && {borderColor: theme.colors.red},
+              ]}>
               <Ionicons
                 name="person-outline"
                 size={25}
@@ -153,14 +170,27 @@ const Signup = ({navigation}) => {
           )}
           name="lastName"
         />
-        {errors.lastName && <Text>This is required.</Text>}
+        {errors.lastName && (
+          <Text style={styles.errorText}>Last name is required.</Text>
+        )}
         <Controller
           control={control}
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: 'Email is required',
+            },
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'invalid email address',
+            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <View style={styles.formField}>
+            <View
+              style={[
+                styles.formField,
+                errors.email && {borderColor: theme.colors.red},
+              ]}>
               <Ionicons
                 name="mail-outline"
                 size={25}
@@ -183,14 +213,27 @@ const Signup = ({navigation}) => {
           )}
           name="email"
         />
-        {errors.email && <Text>This is required.</Text>}
+        {errors.email && (
+          <Text style={styles.errorText}>{errors.email.message}</Text>
+        )}
         <Controller
           control={control}
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: 'Password is required',
+            },
+            minLength: {
+              value: 6,
+              message: 'Password should be at least 6 characters',
+            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <View style={styles.formField}>
+            <View
+              style={[
+                styles.formField,
+                errors.password && {borderColor: theme.colors.red},
+              ]}>
               <Ionicons
                 name="lock-closed-outline"
                 size={25}
@@ -213,14 +256,27 @@ const Signup = ({navigation}) => {
           )}
           name="password"
         />
-        {errors.password && <Text>This is required.</Text>}
+        {errors.password && (
+          <Text style={styles.errorText}>{errors.password.message}</Text>
+        )}
         <Controller
           control={control}
           rules={{
-            required: true,
+            required: {
+              value: true,
+              message: 'Phone is required',
+            },
+            minLength: {
+              value: 6,
+              message: 'Invalid phone number',
+            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <View style={styles.formField}>
+            <View
+              style={[
+                styles.formField,
+                errors.phone && {borderColor: theme.colors.red},
+              ]}>
               <Ionicons
                 name="call-outline"
                 size={25}
@@ -241,7 +297,9 @@ const Signup = ({navigation}) => {
           )}
           name="phone"
         />
-        {errors.phone && <Text>This is required.</Text>}
+        {errors.phone && (
+          <Text style={styles.errorText}>{errors.phone.message}</Text>
+        )}
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
           style={styles.actionButton}>
@@ -320,6 +378,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginBottom: 2,
     color: theme.colors.gray,
+  },
+  errorText: {
+    color: theme.colors.red,
   },
 });
 

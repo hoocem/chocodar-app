@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
+import {useIsFocused} from '@react-navigation/native';
 import {useForm, Controller} from 'react-hook-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -23,12 +24,12 @@ const {setUserContext} = authActions;
 
 const Signin = ({navigation}) => {
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const passwordInput = useRef();
 
   const {mutate: signinMutaion} = useSignin({
     onError: err => {
-      console.log('error = ', err.response.status);
       if (err.response.status === 401) {
         RNToasty.Error({
           title: 'Invalid email and password combination',
@@ -59,6 +60,7 @@ const Signin = ({navigation}) => {
     control,
     handleSubmit,
     formState: {errors},
+    clearErrors,
   } = useForm({
     defaultValues: {
       email: '',
@@ -69,6 +71,10 @@ const Signin = ({navigation}) => {
   const onSubmit = data => {
     signinMutaion(data);
   };
+
+  useEffect(() => {
+    clearErrors();
+  }, [clearErrors, isFocused]);
 
   return (
     <>
