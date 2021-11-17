@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {theme} from '../common/theme';
 import SecondaryHeader from '../components/SecondaryHeader';
 import CartItem from '../components/CartItem';
+import {getCartTotalPrice} from '../helpers/cartHelpers';
 
 const {height} = Dimensions.get('window');
 
@@ -64,17 +65,23 @@ const Cart = ({navigation}) => {
             contentContainerStyle={styles.flatListContent}
           />
         )}
-        <View
-          style={[
-            styles.checkoutContainer,
-            {paddingBottom: tabBarHeight + 15},
-          ]}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Checkout')}
-            style={styles.checkouBtn}>
-            <Text style={styles.actionButtonText}>CHECKOUT</Text>
-          </TouchableOpacity>
-        </View>
+        {!!cart.length && (
+          <View
+            style={[
+              styles.checkoutContainer,
+              {paddingBottom: tabBarHeight + 15},
+            ]}>
+            <View style={styles.subtotalContainer}>
+              <Text style={styles.totalText}>Total</Text>
+              <Text style={styles.totalText}>{getCartTotalPrice(cart)} DT</Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Checkout')}
+              style={styles.checkouBtn}>
+              <Text style={styles.actionButtonText}>CHECKOUT</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </>
   );
@@ -84,7 +91,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     height: '100%',
     paddingTop: 10,
-    // paddingHorizontal: 10,
     backgroundColor: theme.colors.lightGray,
   },
   iconContainer: {
@@ -144,7 +150,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   checkoutContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     width: '100%',
     paddingHorizontal: 10,
     paddingTop: 5,
@@ -152,6 +158,16 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     elevation: 11,
     shadowOpacity: 1,
+  },
+  subtotalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 5,
+  },
+  totalText: {
+    color: theme.colors.darkGray,
+    fontWeight: '700',
+    fontSize: 16,
   },
   checkouBtn: {
     justifyContent: 'center',
