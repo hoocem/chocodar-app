@@ -13,6 +13,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {useForm, Controller} from 'react-hook-form';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {RNToasty} from 'react-native-toasty';
 import SecondaryHeader from '../components/SecondaryHeader';
 import RadioButton from '../components/RadioButton';
 import {theme} from '../common/theme';
@@ -35,10 +36,22 @@ const Signup = ({navigation}) => {
 
   const {mutate: signupMutaion} = useSignup({
     onError: err => {
-      console.log('error = ', err);
+      if (err.response.status === 403) {
+        RNToasty.Error({
+          title: err.response.data.message,
+          position: 'top',
+          duration: 1,
+        });
+      } else {
+        RNToasty.Error({
+          title: 'Something went wrong try agin',
+          position: 'top',
+          duration: 1,
+        });
+      }
     },
     onSuccess: (data, variables) => {
-      const token = data.data;
+      const {token} = data.data;
       const user = {
         ...variables,
         token,
@@ -85,6 +98,7 @@ const Signup = ({navigation}) => {
         }}
       />
       <ScrollView
+        keyboardShouldPersistTaps="always"
         showsVerticalScrollIndicator={false}
         style={styles.contentContainer}>
         <Text style={styles.title}>Create Account,</Text>
@@ -267,7 +281,7 @@ const Signup = ({navigation}) => {
               message: 'Phone is required',
             },
             minLength: {
-              value: 6,
+              value: 8,
               message: 'Invalid phone number',
             },
           }}
@@ -291,6 +305,7 @@ const Signup = ({navigation}) => {
                 placeholder="Phone"
                 keyboardType="phone-pad"
                 ref={phoneInput}
+                maxLength={8}
                 style={styles.input}
               />
             </View>

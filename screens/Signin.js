@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
   Dimensions,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
@@ -84,7 +85,10 @@ const Signin = ({navigation}) => {
           navigation.goBack();
         }}
       />
-      <View style={styles.contentContainer}>
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        showsVerticalScrollIndicator={false}
+        style={styles.contentContainer}>
         <Text style={styles.title}>Welcome,</Text>
         <Text style={styles.subtitle}>Sign in to continue</Text>
         <Controller
@@ -176,7 +180,7 @@ const Signin = ({navigation}) => {
             <Text style={styles.signupText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </>
   );
 };
