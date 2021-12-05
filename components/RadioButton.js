@@ -2,19 +2,18 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {theme} from '../common/theme';
 
-const RadioButton = ({selected, name, style, onPress}) => {
+const RadioButton = ({selected, name, style, textStyle, onPress}) => {
   return (
-    <View style={styles.mainContainer}>
+    <View style={[styles.mainContainer, style]}>
       <TouchableOpacity
         onPress={onPress}
         style={[
           styles.outline,
           selected && {borderColor: theme.colors.primay},
-          style,
         ]}>
         {selected && <View style={styles.select} />}
       </TouchableOpacity>
-      <Text style={styles.text}>{name}</Text>
+      <Text style={[styles.text, textStyle]}>{name}</Text>
     </View>
   );
 };

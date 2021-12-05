@@ -2,8 +2,8 @@ import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import {theme} from '../common/theme';
 
-export const CategoryTitle = ({title}) => {
-  return <Text style={styles.titleText}>{title}</Text>;
+export const CategoryTitle = ({title, style}) => {
+  return <Text style={[styles.titleText, style]}>{title}</Text>;
 };
 
 const styles = StyleSheet.create({

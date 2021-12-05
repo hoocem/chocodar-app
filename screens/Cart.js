@@ -76,7 +76,11 @@ const Cart = ({navigation}) => {
               <Text style={styles.totalText}>{getCartTotalPrice(cart)} DT</Text>
             </View>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Checkout')}
+              onPress={() =>
+                navigation.navigate('Checkout', {
+                  subtotal: getCartTotalPrice(cart),
+                })
+              }
               style={styles.checkouBtn}>
               <Text style={styles.actionButtonText}>CHECKOUT</Text>
             </TouchableOpacity>

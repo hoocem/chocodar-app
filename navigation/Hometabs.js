@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Home from '../screens/Home';
@@ -14,6 +15,15 @@ const Tab = createBottomTabNavigator();
 
 const Hometabs = () => {
   const cart = useSelector(state => state.cartReducer);
+
+  const getTabBarStyle = route => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+
+    switch (routeName) {
+      case 'Checkout':
+        return {display: 'none'};
+    }
+  };
 
   return (
     <Tab.Navigator
@@ -49,7 +59,7 @@ const Hometabs = () => {
       <Tab.Screen
         name="Cart"
         component={CartStackNav}
-        options={{
+        options={({route}) => ({
           tabBarLabel: 'Cart',
           tabBarIcon: ({color}) => (
             <View>
@@ -61,7 +71,8 @@ const Hometabs = () => {
               <Ionicons name="cart" color={color} size={30} />
             </View>
           ),
-        }}
+          tabBarStyle: getTabBarStyle(route),
+        })}
       />
       <Tab.Screen
         name="Account"
