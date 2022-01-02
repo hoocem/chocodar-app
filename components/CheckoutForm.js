@@ -68,6 +68,7 @@ const CheckoutForm = () => {
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder="Full name"
+              placeholderTextColor={theme.colors.gray}
               returnKeyType="next"
               // onSubmitEditing={() => lastNameInput.current.focus()}
               blurOnSubmit={false}
@@ -95,7 +96,8 @@ const CheckoutForm = () => {
               selectedValue={watch('governorate')}
               onValueChange={itemValue => {
                 setValue('governorate', itemValue);
-              }}>
+              }}
+              dropdownIconColor={theme.colors.gray}>
               {Object.keys(locations).map(governorate => (
                 <Picker.Item
                   key={governorate}
@@ -126,7 +128,8 @@ const CheckoutForm = () => {
               selectedValue={watch('delegation')}
               onValueChange={itemValue => {
                 setValue('delegation', itemValue);
-              }}>
+              }}
+              dropdownIconColor={theme.colors.gray}>
               {locations[
                 reverseGovernorateName(watch('governorate'))
               ].delegations.map(delegation => (
@@ -163,6 +166,7 @@ const CheckoutForm = () => {
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder="Adress"
+              placeholderTextColor={theme.colors.gray}
               returnKeyType="next"
               // onSubmitEditing={() => lastNameInput.current.focus()}
               blurOnSubmit={false}
@@ -194,6 +198,7 @@ const CheckoutForm = () => {
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder="Phone"
+              placeholderTextColor={theme.colors.gray}
               returnKeyType="next"
               // onSubmitEditing={() => lastNameInput.current.focus()}
               blurOnSubmit={false}

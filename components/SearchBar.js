@@ -22,6 +22,7 @@ export const SearchBar = ({value, onChange, onSubmit, onClear}) => {
         returnKeyType="search"
         style={styles.input}
         placeholder="Search for products"
+        placeholderTextColor={theme.colors.gray}
       />
       {!!value && (
         <TouchableOpacity onPress={onClear}>

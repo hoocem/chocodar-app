@@ -140,6 +140,7 @@ const Signup = ({navigation}) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="First name"
+                placeholderTextColor={theme.colors.gray}
                 returnKeyType="next"
                 onSubmitEditing={() => lastNameInput.current.focus()}
                 blurOnSubmit={false}
@@ -174,6 +175,7 @@ const Signup = ({navigation}) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Last name"
+                placeholderTextColor={theme.colors.gray}
                 returnKeyType="next"
                 onSubmitEditing={() => emailInput.current.focus()}
                 blurOnSubmit={false}
@@ -216,6 +218,7 @@ const Signup = ({navigation}) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Email"
+                placeholderTextColor={theme.colors.gray}
                 keyboardType="email-address"
                 returnKeyType="next"
                 onSubmitEditing={() => passwordInput.current.focus()}
@@ -259,6 +262,7 @@ const Signup = ({navigation}) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Password"
+                placeholderTextColor={theme.colors.gray}
                 secureTextEntry={true}
                 returnKeyType="next"
                 onSubmitEditing={() => phoneInput.current.focus()}
@@ -303,6 +307,7 @@ const Signup = ({navigation}) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Phone"
+                placeholderTextColor={theme.colors.gray}
                 keyboardType="phone-pad"
                 ref={phoneInput}
                 maxLength={8}
@@ -383,6 +388,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     paddingBottom: 0,
+    color: theme.colors.darkGray,
   },
   icon: {
     alignSelf: 'flex-end',

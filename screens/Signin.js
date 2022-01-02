@@ -112,6 +112,7 @@ const Signin = ({navigation}) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Email"
+                placeholderTextColor={theme.colors.gray}
                 keyboardType="email-address"
                 returnKeyType="next"
                 onSubmitEditing={() => passwordInput.current.focus()}
@@ -147,6 +148,7 @@ const Signin = ({navigation}) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Password"
+                placeholderTextColor={theme.colors.gray}
                 secureTextEntry={true}
                 ref={passwordInput}
                 style={styles.input}
@@ -272,6 +274,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     paddingBottom: 0,
+    color: theme.colors.darkGray,
   },
   icon: {
     alignSelf: 'flex-end',
